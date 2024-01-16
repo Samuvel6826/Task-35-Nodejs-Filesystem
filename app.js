@@ -1,11 +1,13 @@
-const createError = require('http-errors');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const router = express.Router();
+const createError = require('http-errors');
 const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const moment = require('moment')
-const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -17,13 +19,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors());
+app.use('/', router);
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/getTextFiles', (req, res) => {
+router.get('/getTextFiles', (req, res) => {
 
   // Specify the folder path where the text files are stored
   const folderPath = path.join(__dirname, 'files');
@@ -47,7 +51,7 @@ app.get('/getTextFiles', (req, res) => {
 
 });
 
-app.post('/createTextFile', (req, res) => {
+router.post('/createTextFile', (req, res) => {
 
   const currentTimestamp = moment().format('LTS');
   const currentDateTime = moment().format('MMMM Do YYYY, h:mm:ss a');
