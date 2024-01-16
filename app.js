@@ -47,10 +47,10 @@ app.get('/getTextFiles', (req, res) => {
 
 });
 
-app.post('/createTxtFile', (req, res) => {
+app.post('/createTextFile', (req, res) => {
 
-  const currentTimestamp = moment().format('HH:mm:ss');
-  const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+  const currentTimestamp = moment().format('LTS');
+  const currentDateTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 
   // Specify the folder path where the file should be created
   const folderPath = path.join(__dirname, 'files');
