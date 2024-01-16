@@ -70,7 +70,7 @@ app.post('/createTextFile', (req, res) => {
       }
       else
       {
-          return res.status(200).json({ message: 'File created successfully' });
+          res.status(200).json({ message: 'File created successfully' });
       }
   });
 
